@@ -9,6 +9,10 @@ import logging
 
 app = Flask(__name__)
 
+@app.route('/')
+def hello():
+    return "Hello from Render!"
+
 # 從環境變數獲取 OpenAI API 金鑰
 openai_api_key = os.environ.get("OPENAI_API_KEY")
 if not openai_api_key:
@@ -35,7 +39,6 @@ def get_final_url(url):
         return response.url
     except requests.RequestException as e:
         return url
-
 
 def check_company_in_database(conn, company_name, company_url):
     """Check if company exists in PostgreSQL database"""
@@ -125,4 +128,5 @@ def analyze_sms():
         return jsonify({'error': 'Database connection failed'}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000)) # 預設可以使用 5000
+    app.run(host='0.0.0.0', port=port, debug=True) # 生產環境 debug=False
