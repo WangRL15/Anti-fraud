@@ -1,4 +1,5 @@
 Flask
 openai
+gunicorn
 requests
 psycopg2-binary
