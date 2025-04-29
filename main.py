@@ -120,9 +120,9 @@ def analyze_sms():
         is_legitimate = check_company_in_database(conn, company_name, company_url)
         conn.close()
         if is_legitimate:
-            result_message = f"該公司與網站存在於資料庫中，並確認此網站為合法正常網址可安心前往:))"
+            result_message = f"✅ Positive Match\nThe company and website were found in our trusted database. This indicates the website is legitimate and safe to visit. :)"
         else:
-            result_message = f"該公司與網站「沒有」在資料庫中，資料庫中找不到相關資料，請小心詐騙訊息！！！"
+            result_message = f"⚠️ No Match\nThe company and website were not found in our trusted database. Please exercise caution—this may be a fraudulent or unverified source!"
         return jsonify({'result': result_message}), 200
     else:
         return jsonify({'error': 'Database connection failed'}), 500
